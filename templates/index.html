@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dólar Hoy Venezuela</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container-fluid bg-image text-white text-center py-5">
+        <h1 class="display-4">💵 Dólar Hoy Venezuela 💵</h1>
+        <p class="lead" style="font-weight: bold;">Actualizado el {{ data["fecha"] }}</p>
+        <hr class="my-4">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card text-white bg-success mb-3 shadow">
+                    <div class="card-body">
+                        <h2><i class="fa-solid fa-landmark"></i> Dólar BCV</h2>
+                        <p class="card-text fs-1">Bs. {{ data["dolar_bcv"].get("USD", "No disponible") }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-white bg-danger mb-3 shadow">
+                    <div class="card-body">
+                        <h2><i class="fa-solid fa-chart-line"></i> Dólar Paralelo</h2>
+                        <p class="card-text fs-1">Bs. {{ data["dolar_paral"].get("USD_PARAL", "No disponible") }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="mt-5">
+            <p class="text-white">Creado con ❤️ por Antonio Dev</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
