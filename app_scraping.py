@@ -1,13 +1,10 @@
-from flask import Flask, render_template
 import requests
 from bs4 import BeautifulSoup
-
-app = Flask(__name__)
 
 def get_dolar_bcv():
     url = "https://www.bcv.org.ve/"
     try:
-        response = requests.get(url, verify=False) 
+        response = requests.get(url, verify=False)  
         response.raise_for_status() 
         soup = BeautifulSoup(response.text, "html.parser")
         
@@ -23,13 +20,13 @@ def get_dolar_bcv():
 def get_dolar_paralelo():
     url = "https://www.dolarvenezuela.com/"
     try:
-        response = requests.get(url, verify=False)
-        response.raise_for_status()
+        response = requests.get(url, verify=False) 
+        response.raise_for_status()  
         soup = BeautifulSoup(response.text, "html.parser")
 
         h3_elements = soup.find_all("h3", class_="text-center")
-        if len(h3_elements) >= 2: 
-            paralelo_value = h3_elements[1].text.strip()
+        if len(h3_elements) >= 2:
+            paralelo_value = h3_elements[1].text.strip()  
             return {"USD_PARAL": paralelo_value}
         else:
             return {"USD_PARAL": "No disponible"}
@@ -44,7 +41,7 @@ def get_date():
     url = "https://www.dolarvenezuela.com/"
     try:
         response = requests.get(url, verify=False) 
-        response.raise_for_status()
+        response.raise_for_status()  
         soup = BeautifulSoup(response.text, "html.parser")
 
         h2_element = soup.find("h2", class_="h4 fecha text-center")
@@ -57,14 +54,13 @@ def get_date():
         print(f"Otro error ocurrió: {e}")
         return "Error en la fecha"
 
-@app.route("/")
-def index():
-    data = {
-        "fecha": get_date(),
-        "dolar_bcv": get_dolar_bcv(),
-        "dolar_paral": get_dolar_paralelo(),
-    }
-    return render_template("index.html", data=data)
-
+# resultados impresos
 if __name__ == "__main__":
-    app.run(debug=True)
+    bcv_data = get_dolar_bcv()
+    paralelo_data = get_dolar_paralelo()
+    date = get_date()
+
+    print("Resultados obtenidos:")
+    print(f"BCV USD: {bcv_data['USD']}")
+    print(f"Dólar paralelo: {paralelo_data['USD_PARAL']}")
+    print(f"Fecha: {date}")
