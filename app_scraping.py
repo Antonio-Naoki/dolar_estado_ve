@@ -11,16 +11,13 @@ def get_tasas_bcv():
     try:
         # Realizar la solicitud HTTP sin verificar el certificado SSL
         response = requests.get(url, verify=False)
-        response.raise_for_status()  # Verificar que la respuesta fue exitosa
+        response.raise_for_status()
 
-        # Analizar el contenido HTML de la página
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # Extraer el valor del dólar
         dolar_div = soup.find("div", id="dolar")
         usd_value = dolar_div.find("strong").text.strip() if dolar_div else "No disponible"
 
-        # Extraer el valor del euro
         euro_div = soup.find("div", id="euro")
         eur_value = euro_div.find("strong").text.strip() if euro_div else "No disponible"
 
