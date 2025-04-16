@@ -61,7 +61,7 @@ class ScraperService:
         """Obtiene la tasa del dólar paralelo"""
         url = "https://monitordolarvenezuela.com/"
         options = Options()
-        options.add_argument("--headless=new")  # Nueva forma recomendada
+        options.add_argument("--headless=new")  # Nueva forma  recomendada
         options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
