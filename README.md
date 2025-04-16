@@ -15,3 +15,12 @@ API que obtiene tasas de cambio actualizadas del BCV y mercado paralelo en Venez
 🧪 Scraping híbrido: Utiliza requests y BeautifulSoup para contenido estático, y Selenium para contenido dinámico.
 
 🧰 Diseñado para automatización: Ideal para integraciones con bots, dashboards o scripts de monitoreo.
+
+## Para acceder a tu API desde cualquier lugar:
+
+https://tu-proyecto.usuario.replit.app
+
+Entonces podrás acceder a la API usando:
+
+Para obtener tasas: https://tu-proyecto.usuario.replit.app/api/rates
+Para verificar estado: https://tu-proyecto.usuario.replit.app/health
