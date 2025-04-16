@@ -23,4 +23,5 @@ https://tu-proyecto.usuario.replit.app
 Entonces podrás acceder a la API usando:
 
 Para obtener tasas: https://tu-proyecto.usuario.replit.app/api/rates
+
 Para verificar estado: https://tu-proyecto.usuario.replit.app/health
