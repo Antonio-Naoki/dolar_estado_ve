@@ -20,6 +20,7 @@ API que obtiene tasas de cambio actualizadas del BCV y mercado paralelo en Venez
 Puedes acceder a los datos directamente mediante el siguiente endpoint:
 
 https://dolarestadove-production.up.railway.app/api/rates
+
 https://dolarestadove-production.up.railway.app/docs
 
 ## ⭐ Apóyame
