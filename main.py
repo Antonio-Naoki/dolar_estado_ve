@@ -6,9 +6,11 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
 # --------------------------
 # Modelos (Esquemas Pydantic)
@@ -72,17 +74,16 @@ class ScraperService:
         options.add_argument("--remote-debugging-port=0")
         options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
-        service = webdriver.ChromeService()
+        # Usa webdriver-manager para instalar el ChromeDriver correcto
+        service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=options)
         
         try:
             driver.get(url)
-            # Espera a que cargue el contenido dinámico
             WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".font-bold"))
             )
             
-            # Intenta con diferentes selectores
             selectors = [
                 "//h3[contains(., 'Paralelo')]/following::p[contains(@class, 'font-bold')][1]",
                 "//*[contains(text(), 'Dólar Paralelo')]/following::p[1]",
@@ -99,7 +100,6 @@ class ScraperService:
                 except:
                     continue
             
-            # Si ningún selector funciona, toma screenshot para debug
             driver.save_screenshot("debug_screenshot.png")
             return ParallelRate(usd="No disponible")
             
@@ -156,7 +156,6 @@ class RatesController:
 
 app = FastAPI()
 
-# Configurar CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -164,7 +163,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Dependencias
 def get_scraper_service():
     return ScraperService()
 
@@ -173,7 +171,6 @@ def get_rates_controller(
 ) -> RatesController:
     return RatesController(scraper_service=scraper_service)
 
-# Rutas
 @app.get("/api/rates", response_model=RatesResponse)
 async def get_rates(controller: RatesController = Depends(get_rates_controller)):
     return controller.get_rates()
