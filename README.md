@@ -26,3 +26,6 @@ Puedes acceder a los datos directamente mediante el siguiente endpoint:
 ## ⭐ Apóyame
 Si este proyecto te fue útil o lo estás usando en tus desarrollos, déjame una estrellita en GitHub.
 ¡Es gratis y motiva muchísimo! 💛✨
+
+## ☕ O Regalame un Cafe
+`https://regalameuncafe.com/antonio-morales`
